@@ -1,7 +1,5 @@
 package com.btphat.spicynoodles.model;
 
-import java.util.Date;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,8 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,20 +16,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Invoice {
+public class OrderOffline {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "invoice_id")
-	private int invoiceId;
+	@Column(name = "order_id")
+	private int orderId;
 	
-	@Column(name = "total_price", nullable = false)
-	private float totalPrice;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "dish_id", referencedColumnName = "dish_id")
+	private Dish dish;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "soft_drink_id", referencedColumnName = "soft_drink_id")
+	private SoftDrink softDrink;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	private User user;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "relaese_date")
-	private Date releaseDate;
+	@Column(name = "amount")
+	private int amount;
 }

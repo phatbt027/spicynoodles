@@ -1,17 +1,16 @@
 package com.btphat.spicynoodles.model;
 
-import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,20 +19,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Invoice {
+public class Dish {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "invoice_id")
-	private int invoiceId;
+	@Column(name = "dish_id")
+	private int dishId;
 	
-	@Column(name = "total_price", nullable = false)
-	private float totalPrice;
+	@Column(name = "dish_name", nullable = false)
+	private String softDrinkName;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
-	private User user;
+	@Column(name = "price", nullable = false)
+	private float price;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "relaese_date")
-	private Date releaseDate;
+	@ManyToMany(mappedBy = "dishes", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Material> materials;
+	
+	@OneToOne(mappedBy = "dish")
+	private OrderOffline order;
 }
