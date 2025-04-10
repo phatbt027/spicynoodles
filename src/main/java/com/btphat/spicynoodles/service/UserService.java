@@ -7,15 +7,15 @@ import com.btphat.spicynoodles.model.User;
 
 public interface UserService {
 	
-	public User saveUser(User user);
+	public User save(User user);
 	
-	public User updateUser(final UserDto userDto);
+	public User update(final UserDto userDto);
 	
-	public void deleteUser(final UserDto userDto);
+	public void delete(final UserDto userDto);
 	
-	public User disableUser(final UserDto userDto);
+	public User disable(final UserDto userDto);
 	
-	public List<UserDto> getAllUser();
+	public List<UserDto> getAll();
 	
 	public User findUserByUsername(final UserDto userDto);
 }

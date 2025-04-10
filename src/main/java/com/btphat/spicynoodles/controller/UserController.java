@@ -22,7 +22,7 @@ public class UserController {
 	
 	@RequestMapping("/saveUser")
 	public ResponseEntity<User> saveUser(@RequestBody User user) {
-		User newUser = userService.saveUser(user);
+		User newUser = userService.save(user);
 		return ResponseEntity.ok(newUser);
 	}
 	

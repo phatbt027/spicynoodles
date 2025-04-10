@@ -1,4 +1,4 @@
-package com.btphat.spicynoodles.service;
+package com.btphat.spicynoodles.ServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ import com.btphat.spicynoodles.dto.UserDto;
 import com.btphat.spicynoodles.model.User;
 import com.btphat.spicynoodles.model.UserRole;
 import com.btphat.spicynoodles.repository.UserRepository;
+import com.btphat.spicynoodles.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,33 +20,33 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 
 	@Override
-	public User saveUser(final User user) {
+	public User save(final User user) {
 		user.setEnabled(true);
 		user.setRole(UserRole.CUSTOMER);
 		return userRepository.save(user);
 	}
 
 	@Override
-	public User updateUser(final UserDto userDto) {
+	public User update(final UserDto userDto) {
 		User user = findUserByUsername(userDto);
 		return userRepository.save(user);
 	}
 
 	@Override
-	public void deleteUser(final UserDto userDto) {
+	public void delete(final UserDto userDto) {
 		User user = findUserByUsername(userDto);
 		userRepository.delete(user);
 	}
 
 	@Override
-	public User disableUser(final UserDto userDto) {
+	public User disable(final UserDto userDto) {
 		User user = findUserByUsername(userDto);
 		user.setEnabled(false);
 		return userRepository.save(user);
 	}
 
 	@Override
-	public List<UserDto> getAllUser() {
+	public List<UserDto> getAll() {
 		List<User> userList = new ArrayList<User>();
 		List<UserDto> userDtoList = new ArrayList<UserDto>();
 		userList = userRepository.findAll();
